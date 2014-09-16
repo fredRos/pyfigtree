@@ -48,14 +48,6 @@ plt.plot(target_points, target_densities)
 plt.hist(samples, histtype='stepfilled', normed=True)
 plt.show()
 
-Requirements
-------------
-
-This wrapper has been developed and tested only on linux.
-
-* Both the figtree and the ANN library have to be available to the loader; e.g. by adding them to $LD_LIBRARY_PATH
-* numpy
-
 Legal stuff
 -----------
 
