@@ -2,7 +2,7 @@ pyfigtree
 =========
 
 A python ctypes wrapper of the
-[figtree library](http://sourceforge.net/projects/figtree) for fast
+[figtree library](https://github.com/vmorariu/figtree) for fast
 Gaussian summation by V. Morariu et al.
 
 The main function for users is `pyfigtree.figtree`. It computes the
@@ -10,8 +10,13 @@ improved fast Gauss transform
 
     g(y) = \sum_{i=1}^N w_i \exp( -|x_i - y|^2 / h^2)
 
-for N samples `{x_i}` at the target point y. For a properly normalized
-Gaussian kernel-density estimation in 1D, the weight is
+for N samples `{x_i}` at the target point y.
+
+Kernel density estimation
+-------------------------
+
+For a properly normalized Gaussian kernel density estimation in 1D,
+the weight is
 
     w_i = 1 / (N \sqrt{\pi h^2}),
 
@@ -60,15 +65,36 @@ Installation
 ------------
 
 This wrapper has been developed and tested only on linux. To use it,
+first install both the figtree and the ANN library following the
+instructions at https://github.com/vmorariu/figtree and make the
+libraries available to the loader at runtime. For example,
 
-* install both the figtree and the ANN library following the
-  instructions at http://sourceforge.net/projects/figtree and make the
-  li braris available to the loader at runtime; e.g. by adding them to
-  $LD_LIBRARY_PATH
-* add `pyfigtree.py` to your `PYTHON_PATH`,
-* make sure numpy is installed,
+```sh
+export FIGTREEDIR=/path/to/figtree
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$FIGTREEDIR/lib
+export PYTHONPATH=/path/to/pyfigtree:$PYTHONPATH
+```
+
+Then
+
+* add `pyfigtree.py` to your `PYTHON_PATH`;
+* make sure `numpy` is installed;
 * test the setup by executing `python figtree.py` to run a set of unit
-  tests
+  tests.
+
+Historical note
+---------------
+
+I wrote this wrapper around 2011. In 2014, I figured I should clean it
+up and release it on github because it may be useful to others. When I
+notified Vlad Morariu, the author of figtree, he told me that he had
+in fact done the same so now there are two
+[python wrappers](https://github.com/vmorariu/figtree#python-wrapper).
+
+What's the difference? Vlad uses `cython` and I use `ctypes`; the
+latter is included in a standard `python` installation, so I have one
+less dependency and I don't need to compile anything, the only requirement
+is to be able to load the figtree libraries at runtime.
 
 License
 -------
